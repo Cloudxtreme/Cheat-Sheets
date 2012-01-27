@@ -1,0 +1,65 @@
+﻿a2enmod rewrite
+
+Los ficheros de configuración de los hostings virtuales se 
+configuran en sites-available. El segundo subdirectorio sólo 
+contiene enlaces a aquellos virtulhost que queremos activar.
+
+Queremos crear un virtualhost de nombre hackit. Es decir, 
+cuando ponga en mi navegador http://hackit me debe de llevar 
+a la página principal de ese host. Si pongo http://localhost 
+me llevará al virtualhost por defecto (distinto del de hackit).
+
+Lo primero, creo una nueva entrada en /etc/hosts 
+(mantengo lo que había y añado lo siguiente):
+
+127.0.0.1 hackit
+
+Copio los archivos del nuevo site en /var/www/hackit.
+
+Comienza el procedimiento de configuración del nuevo virtualhost en Apache2:
+
+$ cd /etc/apache2/sites-available
+
+Edito las dos primeras líneas del fichero default para que queden así:
+
+NameVirtualHost *:80
+<VirtualHost *:80>
+$ cp default hackit
+
+Edito hackit para que las primeras líneas queden así:
+
+<VirtualHost *:80>
+	ServerAdmin webmaster@hackit
+	ServerName hackit
+	DocumentRoot /var/www/hackit
+<Directory />
+Options FollowSymLinks
+AllowOverride None
+</Directory>
+<Directory /var/www/hackit>
+
+$ cd /etc/apache2
+
+El siguiente comando, a2ensite (available2enablesite) crea un 
+enlace en sites-enable al site que le indiquemos (es decir, 
+activa el virtualhost que acabamos de crear)
+
+a2ensite hackit
+
+Agregar al final de /etc/apache2/sites-available/default
+
+<VirtualHost *:80>
+        ServerAdmin webmaster@webeloper
+        ServerName webeloper.info
+        DocumentRoot /var/www/webeloper
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory /var/www/webeloper>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride All
+                Order allow,deny
+                allow from all
+        </Directory>
+</VirtualHost>
