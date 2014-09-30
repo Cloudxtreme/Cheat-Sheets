@@ -1,4 +1,10 @@
 ```
+:primary_key
+:binary :boolean 
+:date :datetime :time :timestamp
+:decimal :float :integer
+:string :text
+
 Person.where(name: 'Spartacus', rating: 4) # returns list (maybe empty)
 Person.find_by(name: 'Spartacus', rating: 4) # the first item or nil.
 Person.where(name: 'Spartacus', rating: 4).first_or_initialize
