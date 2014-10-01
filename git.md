@@ -2,11 +2,9 @@
 ```git init```
 
 * Add external(remote) repo named origin
+```git remote add origin git@github.com:__user__/__repo__.git```
 > By convention, "origin" is the original remote repository, it is the 'primary' centralized repository as well. 
 In other words is the local name given to the remote centralized server 
-```
-git remote add origin git@github.com:__user__/__repo__.git
-```
  
 * You can check the URL of origin with this: 
 ```git remote show origin```
@@ -29,7 +27,7 @@ git config --global user.email "don@gmail.com"
 git config --global user.email # check if changed
 ```
 
-=== Cloning ===
+### Cloning ###
 
 - Cloning a git repo, remote or local
 ```
@@ -51,20 +49,17 @@ git clone hello hello-clone
 ```git pull```
 
 
-== Ignoring files ==
+### Ignoring files ###
 
-- Create a file in the root directory called ".gitignore"
-- then add ignore restrictions like: *.log db/schema.rb 
+- Create a file in the root directory called ```.gitignore```
+- then add ignore restrictions like: ```*.log db/schema.rb```
 
-- If you want a "log/" directory, but want to ignore all the files in it
-```log/*```
-- Then add an empty .gitignore in the empty directory:
-```touch log/.gitignore```
+- If you want a ```log/``` directory, but want to ignore all the files in it: ```log/*```
+- Then add an empty .gitignore in the empty directory: ```touch log/.gitignore```
 
-# Lines beginning with "!" are exceptions
-```!.gitignore```
+- Lines beginning with ```!``` are exceptions ```!.gitignore```
 
-=== Basic Commands ===
+### Basic Commands ###
 
 - Checking the status of your repository
 git status
