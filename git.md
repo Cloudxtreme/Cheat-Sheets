@@ -21,11 +21,11 @@ In other words is the local name given to the remote centralized server
 * Pull (checkout) to local "master" from remote repo "origin"
 ```git pull origin master```
 
-* define the git user 
-```
-git config --global user.email "don@gmail.com"
-git config --global user.email # check if changed
-```
+* Define the git user (email or name)
+```git config --global user.email "don@gmail.com"```
+
+* Check user (email or name)
+```git config --global user.email```
 
 ### Cloning ###
 
@@ -61,28 +61,14 @@ git clone hello hello-clone
 
 ### Basic Commands ###
 
-- Checking the status of your repository
-git status
-
-- Seeing what files have been committed
-git ls-files
-
-- Scheduling deletion of a file
-git rm __file__
-
-- Viewing a log of your commits ( -v: pagination )
-git log
-git log --stat
-
-- Visualizing git changes
-git --all
-
+- Checking the status of your repository ```git status```
+- Seeing what files have been committed ```git ls-files```
+- Scheduling deletion of a file ```git rm __file__```
+- Viewing a log of your commits ( -v: pagination ) ```git log``` or ```git log --stat```
+- Visualizing git changes ```git --all```
 - Creating a new tag and pushing it to the remote branch
+```git tag "v1.3"```, then ```git push --tags```
 ```
-git tag "v1.3"
-git push --tags
-```
-
 - SVN revert
 ```
 git log # search the SHA1_HASH where you want to go
