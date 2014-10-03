@@ -48,6 +48,8 @@ git clone hello hello-clone
 - You do not need to specify the local branch if you are already sitting in it.
 ```git pull```
 
+- Clone specific branch
+```git clone <url> --branch <branch> --single-branch [<folder>]```
 
 ### Ignoring files ###
 
