@@ -49,7 +49,12 @@ git clone hello hello-clone
 ```git pull```
 
 - Clone specific branch
-```git clone <url> --branch <branch> --single-branch [<folder>]```
+```
+git clone <url> --branch <branch> --single-branch [<folder>]
+git clone user@git-server:project_name.git -b branch_name /some/folder
+git clone user@git-server:project_name.git -b branch_name --single-branch /some/folder
+```
+
 
 ### Ignoring files ###
 
