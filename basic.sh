@@ -1,3 +1,6 @@
+# Run backgrouind task
+nohup /path/script.sh > /dev/null 2>&1 &
+
 # Ubuntu # adduser <username>
 sudo useradd -s /bin/bash -d /home/bitnami -m bitnami
 sudo passwd bitnami
