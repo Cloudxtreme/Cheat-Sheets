@@ -21,6 +21,7 @@ db.users.count({age: {$lte: 33}}).sort({username: 1, date: 1}).limit(100)
 db.users.update(FILTER, SET, {multi: true})
 db.users.update({name: "Bob"}, {$set:{age: 33}}, {multi: true})
 db.users.update({name: "Bob"}, {$inc:{age: 2}}, {multi: true})
+db.collection.remove(<query>, {justOne: <boolean>, writeConcern: <document>})
 
 {a: 10, b: "hello"} 			// a=10 AND b="hello".
 {a: {$gt: 10}}					// a is greater than 10 "$lt, $gte, $lte, $ne"
@@ -50,3 +51,36 @@ db.users.update({name: "Bob"}, {$inc:{age: 2}}, {multi: true})
 {$pop: {a: -1}} 				// Remove the first element from the array a.
 {$pull: {a: 5}} 				// Remove all occurrences of 5from the array a.
 {$pullAll: {a: [5, 6]}} 		// Remove all occurrences of 5or 6from the array a
+
+//
+// External commands
+//
+mongoexport --host mongodb1.example.net --port 37017 --username user --password pass --collection contacts --out mdb.json
+mongoexport -c collection -d database --query '{"field": 1}' > ~/dump.mongo.json		// export to JSON
+mongoexport -c collection -d database -o ~/dump.mongo.json								// export to JSON
+
+mongoimport -c collection -f collection.json
+
+//
+// Agregation
+//
+db.engagequeueitem.distinct("cust_id")
+
+db.engagequeueitem.aggregate([
+	{$match: {status: "A"}},
+	{$group: {_id: "$engagement_id", total: {$sum: "amount"}}}
+])
+
+db.engagequeueitem.aggregate([
+	{$match: {status: "QUEUED"}},
+	{$group: {_id: "$engagement_id", count: {$sum: 1}}}
+])
+
+db.engagequeueitem.mapReduce(
+	function() {emit(this.cust_id, this.amount);},		// map
+	function(key, values) {return Array.sum(values)},	// reduce
+	{
+		query: {status: "A"},		// query
+		out: "order_totals"			// output
+	}
+)
