@@ -50,14 +50,7 @@ DROP USER usuario;
 -- REVOKE tipo_privilegio ON {nombre_tabla | * | *.* | nombre_bd.*} FROM usuario;
 GRANT SELECT ON *.* TO usuario;
 GRANT ALL ON db.* TO usuario@localhost IDENTIFIED BY 'pass';
-GRANT ALL ON smf.* TO smf@localhost IDENTIFIED BY 'smfp4ss';
-GRANT ALL ON cardgen.* TO cardgenuser@localhost IDENTIFIED BY 'cardgenpass';
 GRANT ALL ON bizdex.* TO bizdexuser@localhost IDENTIFIED BY 'bizdexpass';
-GRANT ALL ON gestixbi.* TO ruisdb@localhost IDENTIFIED BY 'r941967';
-GRANT ALL ON fundb.* TO funuser@localhost IDENTIFIED BY 'funpass'
-GRANT ALL ON gifdb.* TO gifuser@localhost IDENTIFIED BY 'gifpass'; -- gifmin
-GRANT ALL ON faildb.* TO failuser@localhost IDENTIFIED BY 'failpass'; -- failmin
-GRANT ALL ON pensadb.* TO pensauser@localhost IDENTIFIED BY 'pensapass'; -- pensamin
 
 -- alter table
 ALTER TABLE table_name DROP COLUMN column_name;

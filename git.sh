@@ -1,10 +1,11 @@
-* Start using git with the current directory
-```git init```
+# Start using git with the current directory
+git init
 
-* Add external(remote) repo named origin
-```git remote add origin git@github.com:__user__/__repo__.git```
-> By convention, "origin" is the original remote repository, it is the 'primary' centralized repository as well. 
-In other words is the local name given to the remote centralized server 
+# Add external(remote) repo named origin
+git remote add origin git@github.com:__user__/__repo__.git
+#   By convention, "origin" is the original remote repository, 
+#     it is the 'primary' centralized repository as well. 
+#     In other words is the local name given to the remote centralized server.
  
 * You can check the URL of origin with this: 
 ```git remote show origin```
@@ -80,14 +81,17 @@ git clone user@git-server:project_name.git -b branch_name --single-branch /some/
 ```
 git log # search the SHA1_HASH where you want to go
 git reset --hard SHA1_HASH # SHA1_HASH must me something like: 85102eac830990afa60136419bd09ffeea7eb646
-```
- 
-```
+
 git clone -b <branch> <remote_repo>
-Example:
 git clone -b my-branch git@github.com:user/myproject.git
-Alternative (no public key setup needed):
-git clone -b my-branch https://git@github.com/username/myproject.git
+
 With Git 1.7.10 and later, add --single-branch to prevent fetching of all branches. Example, with OpenCV 2.4 branch:
 git clone -b 2.4 --single-branch https://github.com/Itseez/opencv.git opencv-2.4
-```
+
+
+# merge differente remotes
+git remote add openshift git@github.com:__user__/__repo__.git
+git fetch openshift
+git merge openshift/master
+git commit
+

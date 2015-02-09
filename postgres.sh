@@ -16,8 +16,8 @@ psql satchmostore -U satchmo -W
 
 # Para poder acceder de forma remota
 /etc/postgresql/8.4/main/postgresql.conf
-	#listen_addresses = 'localhost' --> listen_addresses = '*'
-	#password_encryption = on --> password_encryption = on
+	#listen_addresses = 'localhost' --> listen_addresses = '*' o listen_addresses = '0.0.0.0'
+	#password_encryption = on --> password_encryption = on 
 
 # configurar la lista de acceso 
 /etc/postgresql/8.4/main/pg_hba.conf
