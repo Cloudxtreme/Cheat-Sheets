@@ -1,0 +1,17 @@
+sh setuptools-0.6c9-py2.4.egg --prefix=~
+
+# instalar django
+python setup.py install
+
+# instalar setuptool
+
+
+# instalar reversion
+easy_install.exe django-reversion
+
+apt-get install python-django-south
+yum install Django-south
+easy_install South 
+easy_install -U South # upgrade
+
+easy_install PIL

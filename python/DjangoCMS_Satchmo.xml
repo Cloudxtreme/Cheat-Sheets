@@ -1,0 +1,47 @@
+!!!Autentication
+
+<SandboxTokens>
+      <Token>acc83c4a9ec03fa9f3cf693e6efbe4</Token>
+      <UserToken>ff65526c6bd18b55edde10f18cad52</UserToken>
+      <DeveloperName>user_fernando_vasquez</DeveloperName>
+</SandboxTokens>
+
+<DevelopersArea
+UserName="iwxfer"
+Password="vonfer45"
+/>
+
+<info
+	tracLogin="fernando / qjkx83020oe"
+	url="trac.samplacette.com" ticket=123 
+	svn="svn.samplacette.com/gfairyenv"
+	testing/integration_env="ec2-50-16-132-23.compute-1.amazonaws.com"
+	user='ubuntu'
+/>
+!!!Basci SVN commands
+{{{
+ssh -i ~/.ssh/Fernando_key.pem ubuntu@ec2-50-16-132-23.compute-1.amazonaws.com
+svn co http://svn.samplacette.com/gfairyenv/branches/add_django_cms_blog/ --username fernando --password qjkx83020oe
+svn co http://svn.samplacette.com/gfairyenv/branches/trunk/ --username fernando --password qjkx83020oe
+svn copy http://svn.samplacette.com/gfairyenv/trunk \
+         http://svn.samplacette.com/gfairyenv/branches/ebay_api \
+    -m "Ebay API integration"
+svn delete http://svn.samplacette.com/gfairyenv/branches/add_django_cms_blog
+}}}
+
+!!!Django configuration
+{{{
+WSGIDaemonProcess store user=ubuntu group=ubuntu threads=250 \
+  python-path=/home/ubuntu/satchmo-env/lib/python2.6/site-packages
+WSGIProcessGroup store
+
+Alias /static/ /home/ubuntu/store/static/
+Alias /media/ /home/ubuntu/satchmo-env/lib/python2.6/site-packages/django/contrib/admin/media/
+WSGIScriptAlias / /home/ubuntu/store/site.wsgi
+}}}
+
+<LeccionesAprendidas
+	. settings_local.py is only for local configuration, and is not in SVN
+	. commands: svn switch and svn merge
+	. postgres configuration: change indent to trust in pg_hba.conf
+/>
