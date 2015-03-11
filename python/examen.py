@@ -30,7 +30,9 @@ print x
 # array.array(typecode[, initializer])
 # 
 # print resultado
-# 
+
+Excepciones
+{{{
 import types, exceptions
  
 def get_text(o):
@@ -45,3 +47,4 @@ try:
 	break
 except ValueError:
 	print "Oops!  That was no valid number"
+}}}

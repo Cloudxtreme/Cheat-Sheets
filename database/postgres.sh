@@ -51,3 +51,7 @@ pg_dump -Fc -f backup.data.dump -a --disable-triggers database
 ############### utiles #############
 \dg : list roles and groups
 \dt : list of tables
+
+# LOG: could not translate host name "localhost", service "5432" to address: Name or service not known
+# Solution, in file /etc/hosts add:
+127.0.0.1 localhost localhost.localdomain
