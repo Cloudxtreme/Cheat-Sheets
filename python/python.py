@@ -1,11 +1,3 @@
-Los ladrones grandes llevan preso al pequeño.
-A los que se inquietaban por sus sueños, les censuraba que descuidaran lo que hacían despiertos y se preocuparan en cambio tanto de lo que imaginaban dormidos.
-Afirmaba también que las cosas de mucho valor tenían muy poco precio, y a la inversa: una estatua llega a alcanzar los tres mil dracmas mientras que un quénice de harina se vende a dos ochavos
-La verdadera sabiduría está en reconocer la propia ignorancia.
-La mejor salsa es el hambre.
-Si alguien busca la salud, pregúntale si está dispuesto a evitar en el futuro las causas de la enfermedad; en caso contrario, abstente de ayudarle.
-Si yo me hubiera dedicado a la política. ¡oh atenienses!, hubiera perecido hace mucho tiempo y no hubiese hecho ningún bien ni a vosotros ni a mí mismo.
-
 # Replace ROAD by RD.
 re.sub('ROAD$', 'RD.', s)
 s[:-4] + s[-4:].replace('ROAD', 'RD.')
@@ -25,6 +17,9 @@ max(s)              # largest item of s
 s.index(i)          # index of the first occurence of i in s	 
 s.count(i)          # total number of occurences of i in s	 
 
+##
+## Strings
+##
 str.capitalize()
 str.center(width[, fillchar])
 str.count(sub[, start[, end]])
