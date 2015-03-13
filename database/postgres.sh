@@ -6,7 +6,7 @@ sudo /etc/init.d/postgresql-8.4 start
 sudo passwd postgres
 su postgres
 
-# By default Postgresql uses IDENT-based authentication. All you have to do is allow username and password based authentication for your network or webserver. IDENT will never allow you to login via -U and -W options. 
+# By default Postgresql uses IDENT-based authentication. All you have to do is allow username and password based authentication for your network or webserver. IDENT will never allow you to login via -U and -W options.
 #	local	all	all	            trust
 #	host	all	127.0.0.1/32	trust
 
@@ -17,21 +17,28 @@ psql satchmostore -U satchmo -W
 # Para poder acceder de forma remota
 /etc/postgresql/8.4/main/postgresql.conf
 	#listen_addresses = 'localhost' --> listen_addresses = '*' o listen_addresses = '0.0.0.0'
-	#password_encryption = on --> password_encryption = on 
+	#password_encryption = on --> password_encryption = on
 
-# configurar la lista de acceso 
+# configurar la lista de acceso
 /etc/postgresql/8.4/main/pg_hba.conf
-host all all 192.168.1.4 255.255.255.0 md5 
-# acceso sin usuario ni password: 
-host all all 192.168.1.4 255.255.255.0 md5 
+host all all 192.168.1.4 255.255.255.0 md5
+# acceso sin usuario ni password:
+host all all 192.168.1.4 255.255.255.0 md5
 # desde cualquier IP
 host all all 0.0.0.0 0.0.0.0 md5
 # un usuario especifico desde IP especifica
 host MyDataBase MyUser 192.168.1.4 255.255.255.0 md5
 
-# gestion de usuarios
+# create user by specialized commands
 createuser -A -d -P -h host -U new_user
 dropuser -h host -U user
+
+# create user and grant ownership
+sudo -u postgres psql -c "CREATE USER __USER__ WITH PASSWORD '__PASS__';"
+sudo -u postgres psql -c "CREATE DATABASE __DATABASE__ WITH OWNER __USER__ ENCODING 'utf-8';"
+sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE __DATABASE__ to __USER__;"
+# add owner to a database
+sudo -u postgres psql -c "ALTER DATABASE __DATABASE__ OWNER TO __USER__;"
 
 # Backup full database
 pg_dump -h host -U user -W database > backup.sql

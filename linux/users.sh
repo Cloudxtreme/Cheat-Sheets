@@ -1,5 +1,4 @@
 # Ubuntu # adduser <username>
-sudo useradd -s /bin/bash -d /home/bitnami -m bitnami
 sudo useradd -s /bin/bash -d /home/djuser -m djuser
 sudo passwd bitnami
 groupadd -r grupo
@@ -16,3 +15,6 @@ cat /etc/passwd | grep ftp
 #activar y desactivar root en ubuntu
 sudo passwd root
 sudo passwd -l root
+
+#add to sudders
+sudo adduser djuser sudo
