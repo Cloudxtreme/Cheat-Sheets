@@ -21,10 +21,10 @@ bind-address = 127.0.0.1
 $ /etc/init.d/mysql stop
 $ mysqld_safe --skip-grant-tables &
 $ mysql -u root mysql
-mysql> UPDATE user SET Password=PASSWORD('nueva_contraseña') WHERE User='root'; 
-mysql> FLUSH PRIVILEGES; 
+mysql> UPDATE user SET Password=PASSWORD('nueva_contraseña') WHERE User='root';
+mysql> FLUSH PRIVILEGES;
 mysql> \q
-$ killall mysqld; 
+$ killall mysqld;
 $ /etc/init.d/mysql start
 
 -- Change root password (Windows)
@@ -62,13 +62,55 @@ ALTER TABLE table_name DROP INDEX column_name;
 -- Make a unique column so you get no dupes.
 ALTER TABLE table_name ADD UNIQUE (column_name);
 
+-- https://www3.ntu.edu.sg/home/ehchua/programming/sql/SampleDatabases.html
 -- Creating Tables
 CREATE TABLE Students (
+    id bigint UNSIGNED NOT NULL AUTO_INCREMENT,
     name varchar(30) NOT NULL,
-    id int NOT NULL,
     nick varchar(20),
-    PRIMARY KEY (id)
-);
+    description TEXT,
+    PRIMARY KEY (id),
+    FULLTEXT KEY idx_title_description (name, description)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE employees (
+    emp_no      INT             NOT NULL,  -- UNSIGNED AUTO_INCREMENT??
+    birth_date  DATE            NOT NULL,
+    first_name  VARCHAR(14)     NOT NULL,
+    last_name   VARCHAR(16)     NOT NULL,
+    gender      ENUM ('M','F')  NOT NULL,  -- Enumeration of either 'M' or 'F'
+    hire_date   DATE            NOT NULL,
+    PRIMARY KEY (emp_no)                   -- Index built automatically on primary-key column
+                                           -- INDEX (first_name)
+                                           -- INDEX (last_name)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE departments (
+    dept_no     CHAR(4)         NOT NULL,  -- in the form of 'dxxx'
+    dept_name   VARCHAR(40)     NOT NULL,
+    PRIMARY KEY (dept_no),                 -- Index built automatically
+    UNIQUE  KEY (dept_name)                -- Build INDEX on this unique-value column
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE dept_emp (
+    emp_no      INT         NOT NULL,
+    dept_no     CHAR(4)     NOT NULL,
+    from_date   DATE        NOT NULL,
+    to_date     DATE        NOT NULL,
+    KEY         (emp_no),   -- Build INDEX on this non-unique-value column
+    KEY         (dept_no),  -- Build INDEX on this non-unique-value column
+    FOREIGN KEY (emp_no) REFERENCES employees (emp_no) ON DELETE CASCADE,
+           -- Cascade DELETE from parent table 'employee' to this child table
+           -- If an emp_no is deleted from parent 'employee', all records
+           --  involving this emp_no in this child table are also deleted
+           -- ON UPDATE CASCADE??
+    FOREIGN KEY (dept_no) REFERENCES departments (dept_no) ON DELETE CASCADE,
+           -- ON UPDATE CASCADE??
+    PRIMARY KEY (emp_no, dept_no)
+           -- Might not be unique?? Need to include from_date
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 int(M)          int(5)
 float(M,D)      float(12,3)
@@ -99,7 +141,7 @@ INSERT INTO Students
         SELECT StudentID, FirstName, LastName
         FROM OtherStudentTable;
         WHERE LastName like '%son'
-        
+
 -- Deleteing data from tables
 DELETE FROM students WHERE name='Smith';
 DELETE FROM students WHERE name like '%Smith%';

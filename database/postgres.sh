@@ -12,7 +12,7 @@ su postgres
 
 # Finally for connect to the database:
 psql database -U user -W
-psql satchmostore -U satchmo -W
+psql searchengine -U djuser -W
 
 # Para poder acceder de forma remota
 /etc/postgresql/8.4/main/postgresql.conf

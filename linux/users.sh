@@ -1,6 +1,6 @@
 # Ubuntu # adduser <username>
 sudo useradd -s /bin/bash -d /home/djuser -m djuser
-sudo passwd bitnami
+sudo passwd djuser
 groupadd -r grupo
 gpasswd -a usuario grupo
 # freedomM0dF3r21.
