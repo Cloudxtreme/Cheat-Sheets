@@ -1,32 +1,4 @@
-php -r "readfile('https://getcomposer.org/installer');" | php
-echo @php "%~dp0composer.phar" %*>composer.bat
-composer -V
-
-composer install --dev
-
-== Database
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `type` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
-<migrations>
-  php artisan make:migration create_users_table
-  php artisan make:migration add_votes_to_user_table --table=users
-  php artisan migrate
-  php artisan migrate --force
-  php artisan migrate:rollback
-  php artisan migrate:reset
-</migrations>
-
 <?php
-/*
- *  Models
- */
 class User extends Eloquent {
     protected $table = 'users';
 }
@@ -49,8 +21,13 @@ $user = User::create(array('name' => 'John'));
 $user = User::firstOrCreate(array('name' => 'John'));
 $user = User::firstOrNew(array('name' => 'John'));    // instantiate
 
+$user->save(); // update
 $user->push(); // with relationships
-$user->delete(); 
+$user->delete();
+
+# update a set of rows
+$affected_rows = User::where('votes', '>', 100)->update(array('status' => 2));
+
 User::destroy(1); // by key
 User::destroy(array(1, 2, 3));
 User::destroy(1, 2, 3);
@@ -68,3 +45,27 @@ class User extends Eloquent {
     }
 }
 $users = User::popular()->women()->orderBy('created_at')->get();
+
+// Relationships One To One
+class User extends Eloquent {
+    public function phone() {
+        return $this->hasOne('Phone');
+    }
+}
+$phone = User::find(1)->phone;
+
+// Relationships One To Many
+class Post extends Eloquent {
+    public function comments() {
+        return $this->hasMany('Comment');
+    }
+}
+$comments = Post::find(1)->comments;
+$comments = Post::find(1)->comments()->where('title', '=', 'foo')->first();
+
+// Querying Relations When Selecting
+$posts = Post::has('comments')->get();
+$posts = Post::has('comments', '>=', 3)->get();
+$posts = Post::whereHas('comments', function($q) {
+    $q->where('content', 'like', 'foo%');
+})->get();

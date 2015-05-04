@@ -11,4 +11,3 @@ vi /etc/ld.so.conf
 vi /etc/ld.so.conf.d/libc.conf
 sudo ldconfig
 
-ratoncita_parati@

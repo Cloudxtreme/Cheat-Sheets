@@ -16,5 +16,5 @@ cat /etc/passwd | grep ftp
 sudo passwd root
 sudo passwd -l root
 
-#add to sudders
+#add to sudoers
 sudo adduser djuser sudo
